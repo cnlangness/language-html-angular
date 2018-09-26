@@ -274,6 +274,102 @@
       }
     ]
   }
+ #####################################################################
+ {
+   'begin': '(?:^\\s+)?(<)((?i:latex))\\b(?![^>]*/>)'
+   'beginCaptures':
+     '1':
+       'name': 'punctuation.definition.tag.html'
+     '2':
+       'name': 'entity.name.tag.latex.html'
+   'end': '(?<=</(latex))(>)(?:\\s*\\n)?'
+   'endCaptures':
+     '2':
+       'name': 'punctuation.definition.tag.html'
+   'contentName': 'source.sas.embedded.html'
+   'patterns': [
+     {
+       'include': 'text.tex.latex'
+     }
+     {
+       'begin': '(?<!</(?:latex))(>)'
+       'captures':
+         '1':
+           'name': 'punctuation.definition.tag.html'
+         '2':
+           'name': 'entity.name.tag.script.html'
+       'end': '(</)((?i:latex))'
+       'patterns': [
+         {
+           'captures':
+             '1':
+               'name': 'punctuation.definition.comment.latex'
+           'match': '(//).*?((?=</latex)|$\\n?)'
+           'name': 'comment.line.double-slash.latex'
+         }
+         {
+           'begin': '/\/*'
+           'captures':
+             '0':
+               'name': 'punctuation.definition.comment.latex'
+           'end': '\\*/|(?=</latex)'
+           'name': 'comment.block.latex'
+         }
+         {
+           'include': 'text.tex.latex'
+         }
+       ]
+     }
+   ]
+ }
+  {
+    'begin': '(?:^\\s+)?(<)((?i:code))\\b(?![^>]*/>)'
+    'beginCaptures':
+      '1':
+        'name': 'punctuation.definition.tag.html'
+      '2':
+        'name': 'entity.name.tag.code.html'
+    'end': '(?<=</(code|CODE))(>)(?:\\s*\\n)?'
+    'endCaptures':
+      '2':
+        'name': 'punctuation.definition.tag.html'
+    'contentName': 'source.sas.embedded.html'
+    'patterns': [
+      {
+        'include': 'source.sas'
+      }
+      {
+        'begin': '(?<!</(?:code|CODE))(>)'
+        'captures':
+          '1':
+            'name': 'punctuation.definition.tag.html'
+          '2':
+            'name': 'entity.name.tag.script.html'
+        'end': '(</)((?i:code))'
+        'patterns': [
+          {
+            'captures':
+              '1':
+                'name': 'punctuation.definition.comment.sas'
+            'match': '(//).*?((?=</code)|$\\n?)'
+            'name': 'comment.line.double-slash.sas'
+          }
+          {
+            'begin': '/\/*'
+            'captures':
+              '0':
+                'name': 'punctuation.definition.comment.sas'
+            'end': '\\*/|(?=</code)'
+            'name': 'comment.block.sas'
+          }
+          {
+            'include': 'source.sas'
+          }
+        ]
+      }
+    ]
+  }
+ #################################################################
   {
     'begin': '(</?)((?i:body|head|html)\\b)'
     'captures':
